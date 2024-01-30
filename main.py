@@ -1,5 +1,5 @@
 from pandas import read_html
-from datetime import datetime
+from datetime import datetime, timezone
 from re import search
 from ics import Calendar, Event
 from typing import List
@@ -24,11 +24,11 @@ def iterate_schedule_events(dates, times, class_names) -> List[Event]:
                 begin=datetime.strptime(
                     f'{date}-{time.split("-")[0]}',
                     r'%d.%m.%y-%H:%M',
-                ),
+                ).astimezone(),
                 end=datetime.strptime(
                     f'{date}-{time.split("-")[1]}',
                     r'%d.%m.%y-%H:%M'
-                )
+                ).astimezone()
             ))
     return events
 
